@@ -1,0 +1,12 @@
+.hidescroll {
+    overflow: auto;
+    max-height: 100vh;
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hidescroll::-webkit-scrollbar {
+    width: 0 !important;
+    display: none;
+}

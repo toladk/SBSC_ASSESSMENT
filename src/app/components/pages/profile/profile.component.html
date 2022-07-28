@@ -1,0 +1,125 @@
+<div class="nk-content-wrap">
+    <div class="nk-block-head nk-block-head-lg">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="nk-block-between-md g-4">
+                    <div class="nk-block-head-content">
+                        <!-- <h2 class="nk-block-title fw-normal">Welcome, {{ organizationDetails?.organizationName }}</h2> -->
+                        <div class="nk-block-des">
+                            <p>Your Personal Information.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nk-block nk-block-lg">
+
+        <div class="row g-gs">
+            <div class="col-sm-6 col-xl-4">
+                <div class="card card-bordered">
+                    <ng-template #indicatorTemplate1><i nz-icon nzType="loading" style="font-size: 27px; color: #E96127; margin-top: 130px;" nzSpin="true"></i></ng-template>
+                    <nz-spin simple [nzIndicator]="indicatorTemplate1" [nzSpinning]="isSpinning">
+                        <div class="col-lg-12">
+                            <div class="card-inner">
+                                <div class="team">
+                                    <div class="user-card user-card-s2">
+                                        <div class="user-avatar lg bg-white"><img [src]="imageFile" alt="">
+                                            <div class="status dot dot-lg dot-success"></div>
+                                        </div>
+                                        <div class="user-info">
+                                            <h6>{{ name }}</h6>
+                                        </div>
+                                    </div>
+                                    <ul class="team-info pb-0">
+                                        <li><span>Email</span><span>{{ userEmail }}</span></li>
+                                    </ul>
+                                    <ul class="team-info mt-2">
+                                        <h6>Current Location</h6>
+                                        <li><span>Address</span><span>{{ placeDetails?.Address }}</span></li>
+                                        <li><span>City</span><span>{{ placeDetails?.City }}</span></li>
+                                        <li><span>Region</span><span>{{ placeDetails?.Region }}</span></li>
+                                        <li><span>Country</span><span>{{ placeDetails?.CountryCode }}</span></li>
+                                    </ul>
+                                    <div class="team-view"><a class="btn btn-block btn-primary" (click)="updateBtn()"><span>Update Details</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </nz-spin>
+                </div>
+
+            </div>
+            <div class="col-sm-6 col-xl-8">
+                <div class="card card-bordered" style="margin-bottom: 30px;" *ngIf="showUpdate">
+                    <div class="card-inner">
+                        <ng-template #indicatorTemplate2><i nz-icon nzType="loading" style="font-size: 27px; color: #E96127; margin-top: 70px !important;" nzSpin="true"></i></ng-template>
+                        <nz-spin simple [nzIndicator]="indicatorTemplate2" [nzSpinning]="isSpinning">
+                            <form [formGroup]="updateForm">
+                                <div class="mb-4">
+                                    <h5>Update User Details</h5>
+                                    <h6 class="text-danger mt-3">There is no endpoint to update logged in user details !!</h6>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-label-group"><label class="form-label">First Name</label></div>
+                                            <div class="form-control-wrap">
+                                                <input type="text" formControlName="first_name" class="form-control form-control-lg" placeholder="Enter your First Name">
+                                                <span class="text-danger valiFontSizes" *ngIf="updateForm.get('first_name')?.errors && (updateForm.get('first_name')?.touched || updateForm.get('first_name')?.dirty)">
+                                        <span *ngIf="updateForm.get('first_name')?.errors?.['required']">First Name is required</span>
+                                                <span *ngIf="updateForm.get('first_name')?.errors?.['pattern']">Accept alphabets only.</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-label-group"><label class="form-label">Last Name</label></div>
+                                            <div class="form-control-wrap">
+                                                <input type="text" formControlName="last_name" class="form-control form-control-lg" placeholder="Enter your Last Name">
+                                                <span class="text-danger valiFontSizes" *ngIf="updateForm.get('last_name')?.errors && (updateForm.get('last_name')?.touched || updateForm.get('last_name')?.dirty)">
+                                      <span *ngIf="updateForm.get('last_name')?.errors?.['required']">Last Name is required</span>
+                                                <span *ngIf="updateForm.get('last_name')?.errors?.['pattern']">Accept alphabets only.</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-label-group"><label class="form-label">Email</label></div>
+                                            <div class="form-control-wrap">
+                                                <input type="email" formControlName="email" class="form-control form-control-lg" placeholder="Enter your eamil">
+                                                <span class="text-danger valiFontSizes" *ngIf="updateForm.get('email')?.errors && (updateForm.get('email')?.touched || updateForm.get('email')?.dirty)">
+                                      <span *ngIf="updateForm.get('email')?.errors?.['required']">Email is required</span>
+                                                <span *ngIf="updateForm.get('email')?.errors?.['pattern']">Email is not valid.</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-md-3 col-5 mb-3">
+
+                                    </div>
+                                    <div class="col-md-6 col-2 mb-3">
+                                        <div class="text-center">
+                                            <button class="btn btn-success btn-block" [disabled]="updateForm!.invalid" (click)="submitUpdate()">Update User</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-5 mb-3">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </nz-spin>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
